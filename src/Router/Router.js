@@ -22,23 +22,23 @@ function Router() {
                 <TelaLogin />
             </Route>
 
-            <Route exact path="/" >
+            <Route exact path="/cadastro" >
                 <TelaDeCadastro />
             </Route>
 
-            <Route exact path="/" >
+            <Route exact path="/home" >
                 <TelaHome />
             </Route>
 
-            <Route exact path="/create" >
+            <Route exact path="/restaurantes" >
                 <TelaListaDeRestaurantes />
             </Route>
 
-            <Route exact path="/list" >
+            <Route exact path="/carrinho" >
                 <TelaDeCarrinho />
             </Route>
 
-            <Route exact path="/details" >
+            <Route exact path="/perfil" >
                 <TelaDePerfil />
             </Route>
 
