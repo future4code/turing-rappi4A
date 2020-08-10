@@ -1,5 +1,14 @@
-import styled from 'styled-components'  
+import styled, {keyframes} from 'styled-components'  
 
+const fade = keyframes`
+from{
+    opacity: 0;
+    transform: scale(0.9);
+  } to {
+    opacity: 1;
+    transform: scale(1);
+  }
+`
 export const Login = styled.div`
   font-family: Roboto;
   display: flex;
@@ -8,6 +17,8 @@ export const Login = styled.div`
   justify-content: flex-start;
   width: 360px;
   height: 640px;
+  animation-name: ${fade};
+  animation-duration: 1s;
 `
 export const LogoIcon = styled.img`
   width: 104px;
