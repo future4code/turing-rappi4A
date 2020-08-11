@@ -30,7 +30,7 @@ function Router() {
                 <TelaHome />
             </Route>
 
-            <Route exact path="/restaurantes" >
+            <Route exact path="/restaurantes/:id" >
                 <TelaListaDeRestaurantes />
             </Route>
 

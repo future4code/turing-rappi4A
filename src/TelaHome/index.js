@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
 
 import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerFiltro, FiltroCategoria, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone } from './styles';
 
@@ -17,6 +18,7 @@ const axiosConfig = {
 }
 
 const TelaHome = () => {
+  const history = useHistory();
 
   const [ listaRestaurantes, setListaRestaurantes ] = useState([])
   const [ busca, setBusca ] = useState(false)
@@ -68,7 +70,7 @@ const TelaHome = () => {
     if (inputBusca.length > 2 && listaRestaurantes) {
       let resultados = listaRestaurantes.map( restaurante => {
           if( restaurante.name.toLowerCase().includes(inputBusca.toLowerCase()) ) {
-              return <CardRestaurante key={restaurante.id}>
+              return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
                 <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
                 <CardTexto>
                   <CardNome>{restaurante.name}</CardNome>
@@ -98,7 +100,7 @@ const TelaHome = () => {
   const filtraLista = () => {
     if(filtroCategoria === '') {
       let listaFiltrados = listaRestaurantes.map( restaurante => {
-        return <CardRestaurante key={restaurante.id}>
+        return <CardRestaurante key={restaurante.id} onClick={()=> clicaRestaurante(restaurante.id)}>
           <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
           <CardTexto>
             <CardNome>{restaurante.name}</CardNome>
@@ -112,7 +114,7 @@ const TelaHome = () => {
     } else {
       let listaFiltrados = listaRestaurantes.map( restaurante => {
         if( restaurante.category === filtroCategoria ) {
-          return <CardRestaurante key={restaurante.id}>
+          return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
             <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
             <CardTexto>
               <CardNome>{restaurante.name}</CardNome>
@@ -126,6 +128,10 @@ const TelaHome = () => {
       return listaFiltrados;
     }
 
+  }
+
+  const clicaRestaurante = id => {
+    history.push(`/restaurantes/${id}`)
   }
 
   return <Container>
