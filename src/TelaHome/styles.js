@@ -41,12 +41,14 @@ export const InputBusca = styled.input `
     margin: 0 auto;
     height: 56px;
     padding: 4px;
+    padding-left: 32px;
     border-radius: 2px;
     border: solid 1px #b8b8b8;
     font-size: 16px;
     letter-spacing: -0.39px;
     color: #d0d0d0;
     box-sizing: border-box;
+    background: url(${props => props.img}) no-repeat scroll 4px 16px;
 `
 
 export const ContainerFiltro = styled.div `
@@ -66,12 +68,16 @@ export const FiltroCategoria = styled.h3 `
     font-size: 16px;
     font-weight: 400;
     color: ${props => {
-        if(props.active) {
+        if(props.color === props.filtro) {
             return '#e86e5a'
         } else {
             return '#000000'
         }
     }};
+
+    :active {
+        color: #e86e5a;
+    }
 `
 
 export const ListaRestaurantes = styled.div `

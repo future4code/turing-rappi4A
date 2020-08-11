@@ -42,7 +42,6 @@ function Router() {
                 <TelaDePerfil />
             </Route>
 
-
             <Route path="/" >
                 <h3>Eita Giovana, o forninho caiu (404)</h3>
             </Route>
