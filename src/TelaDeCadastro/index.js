@@ -159,7 +159,7 @@ function TelaDeCadastro() {
               />
               {botaoVerConfirmaSenha()}
           </div>
-          <button>Criar</button>
+          <button>Cadastrar</button>
        </form>
     </div>
    </div>
