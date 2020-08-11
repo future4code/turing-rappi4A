@@ -30,7 +30,7 @@ function Router() {
                 <TelaHome />
             </Route>
 
-            <Route exact path="/restaurantes" >
+            <Route exact path="/restaurantes/:id" >
                 <TelaListaDeRestaurantes />
             </Route>
 
@@ -41,7 +41,6 @@ function Router() {
             <Route exact path="/perfil" >
                 <TelaDePerfil />
             </Route>
-
 
             <Route path="/" >
                 <h3>Eita Giovana, o forninho caiu (404)</h3>
