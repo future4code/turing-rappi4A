@@ -64,18 +64,6 @@ export const FormLogin = styled.form`
   align-items: center;
   justify-content: center;
 `
-export const InputNolocusEmail = styled.div`
-  width: 360px;
-  height: 72px;
-  position: fixed;
-  top: 204px;
-`
-export const InputNolocusPassword = styled.div`
-  width: 360px;
-  height: 72px;
-  position: fixed;
-  top: 276px;
-`
 export const RectangleInputEmail = styled.div`
   width: 328px;
   height: 56px;
@@ -168,8 +156,8 @@ export const FormInputPassword = styled.input`
   top: 303px;
 `
 export const ButtonEnter = styled.button`
-  width: 296px;
-  height: 18px;
+  width: 328px;
+  height: 42px;
   font-size: 16px;
   font-weight: normal;
   font-stretch: normal;
@@ -178,24 +166,10 @@ export const ButtonEnter = styled.button`
   letter-spacing: -0.39px;
   text-align: center;
   color: var(--black);
+  border-radius: 2px;
   background-color: #e86e5a;
   border: none;
   position: fixed;
-  left: 32px;
-  top: 368px;
-`
-export const RectangleButton = styled.div`
-  width: 328px;
-  height: 42px;
-  border-radius: 2px;
-  background-color: #e86e5a;
-  position: fixed;
   left: 16px;
-  top: 356px;
-`
-export const ButtonNolocus = styled.div`
-  width: 360px;
-  height: 42px;
-  position: fixed;
   top: 356px;
 `
