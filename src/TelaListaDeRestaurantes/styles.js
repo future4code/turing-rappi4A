@@ -161,6 +161,7 @@ export const BtnQuantidade = styled.p `
     top: 0;
     right: -1px;
     background-color: transparent;
+    color: #e86e5a;
 `
 
 export const BtnAlteraQuantidade = styled.button `
@@ -175,6 +176,21 @@ export const BtnAlteraQuantidade = styled.button `
     right: -1px;
     cursor: pointer;
     background-color: transparent;
+`
+
+export const BtnRemoveQuantidade = styled.button `
+    padding: 8px 24px;
+    border-radius: 8px 0 8px 0;
+    border: solid 1px #e86e5a;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: -0.29px;
+    position: absolute;
+    bottom: 0;
+    right: -1px;
+    cursor: pointer;
+    background-color: transparent;
+    color: #e86e5a;
 `
 
 export const BoxQuantidade = styled.div `

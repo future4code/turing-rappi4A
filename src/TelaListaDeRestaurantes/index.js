@@ -5,7 +5,7 @@ import { useHistory, useParams } from 'react-router-dom';
 import Menu from '../Components/Menu/index'
 import CarrinhoContext from '../Contexts/CarrinhoContext'
 
-import { Container, Overlay, Header, HeaderTitulo, HeaderIcone, ListaRestaurantes, ListaCategoria, CardRestaurante, CardImagemRestaurante, CardProduto, CardImagem, CardTexto, CardNome, CardDescription, CardPrice, CardInfo, CardTextoDelivery, BtnQuantidade, BtnAlteraQuantidade, BoxQuantidade, BoxTexto, BoxSelect, BoxBtn } from './styles';
+import { Container, Overlay, Header, HeaderTitulo, HeaderIcone, ListaRestaurantes, ListaCategoria, CardRestaurante, CardImagemRestaurante, CardProduto, CardImagem, CardTexto, CardNome, CardDescription, CardPrice, CardInfo, CardTextoDelivery, BtnQuantidade, BtnAlteraQuantidade, BtnRemoveQuantidade, BoxQuantidade, BoxTexto, BoxSelect, BoxBtn } from './styles';
 
 import iconeVoltar from '../Images/back.svg';
 
@@ -132,8 +132,8 @@ function TelaListaDeRestaurantes() {
               }
             })}
 
-            {carrinhoContext.carrinho.findIndex(produtoCarrinho => produto.id === produtoCarrinho.id ) !== -1 ? <BtnAlteraQuantidade onClick={
-              () => removerProduto(produto.id)}>remover</BtnAlteraQuantidade> : <BtnAlteraQuantidade onClick={() => abrirBoxQuantidade(produto.id)}>adicionar</BtnAlteraQuantidade>}
+            {carrinhoContext.carrinho.findIndex(produtoCarrinho => produto.id === produtoCarrinho.id ) !== -1 ? <BtnRemoveQuantidade onClick={
+              () => removerProduto(produto.id)}>remover</BtnRemoveQuantidade> : <BtnAlteraQuantidade onClick={() => abrirBoxQuantidade(produto.id)}>adicionar</BtnAlteraQuantidade>}
 
             {boxQuantidade.id === produto.id && <BoxQuantidade>
               <BoxTexto>Selecione a quantidade desejada</BoxTexto>
