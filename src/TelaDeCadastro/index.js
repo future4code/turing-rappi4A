@@ -1,11 +1,14 @@
 import React, {useState, useEffect } from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
-import {CamposDeCadastro, Imagem, Form} from "./styles"
+import { Header, ContainerLogo, CamposDeCadastro, Imagem, Form } from "./styles"
 import useInput from "../Hooks/useInput"
 import VendoSenha from "../Images/VendoSenha.png"
 import NaoVendoSenha from "../Images/NaoVendoSenha.png"
+import iconeVoltar from '../Images/back.svg';
+import Logo from '../logo-invert.png'
 import CriarEndereco from "../Components/CriarEndereco/index"
+
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A";
 
@@ -98,11 +101,22 @@ const onClickMudar = () => {
     }
   }
 
+  const voltarLogin = () => {
+    history.push("/login")
+  }
+
   return (
     <div>
+     <div>
       { trocarTela === true ?
       <div>
-        <h2>Efetue o Cadastro</h2>
+        <Header>
+          <img src={iconeVoltar} alt="voltar" onClick={voltarLogin} />
+        </Header>
+        <ContainerLogo>
+          <img src={Logo} alt="Logo Rappi4"/>
+          <h2>Cadastrar</h2>
+        </ContainerLogo>
         <Form onSubmit={salvaCadastro}>
           <div>
             <label>Nome*</label>

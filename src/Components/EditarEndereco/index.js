@@ -46,7 +46,7 @@ function EditarEndereco(props) {
   return (
       <ContainerEditarEndereco>
           <Header>
-              <span onClick={() => props.onClickMudar("perfil")}>voltar</span>
+          <img src={props.iconeVoltar} alt="voltar" onClick={() => props.onClickMudar("perfil")} />
               <h2>Endereço</h2>
           </Header>
           <Form onSubmit={editarEndereco}>
