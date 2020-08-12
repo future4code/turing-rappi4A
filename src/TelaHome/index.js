@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import FiltrosContext from '../Contexts/FiltrosContext'
 
 import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerFiltro, FiltroCategoria, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone } from './styles';
 
@@ -20,9 +21,13 @@ const axiosConfig = {
 const TelaHome = () => {
   const history = useHistory();
 
-  const [ listaRestaurantes, setListaRestaurantes ] = useState([])
+  const [ listaRestaurantes, setListaRestaurantes ] = useState([]);
+  const filtrosContext = useContext(FiltrosContext);
+
   const [ busca, setBusca ] = useState(false)
-  const [ filtroCategoria, setFiltroCategoria ] = useState('')
+  const [ filtroBusca, setFiltroBusca ] = useState(filtrosContext.filtroBusca)
+  const [ filtroCategoria, setFiltroCategoria ] = useState(filtrosContext.filtroCategoria)
+
 
   const getRestaurantes = async () => {
     try {
@@ -48,86 +53,47 @@ const TelaHome = () => {
     }
   });
 
-  const [ inputBusca, setInputBusca ] = useState("");
+  const acionaBusca = e => {
+    listaRestaurantesFiltrada = [];
 
-  const aoMudarInputBusca = e => {
-    setInputBusca(e.target.value)
-  }
-
-  const acionaBusca = () => {
+    setFiltroBusca(e.target.value);
     setBusca(true);
+
+    filtrosContext.dispatch({ type: "SET_BUSCA", filtroBusca: filtroBusca });
   }
 
   const saiBusca = () => {
     setBusca(false);
   }
 
-  const buscaLista = () => {
-    if (inputBusca.length < 2) {
-      return <ListaRestaurantes><ResultadoTexto>Busque por nome de restaurantes</ResultadoTexto></ListaRestaurantes>
-    } 
-  
-    if (inputBusca.length > 2 && listaRestaurantes) {
-      let resultados = listaRestaurantes.map( restaurante => {
-          if( restaurante.name.toLowerCase().includes(inputBusca.toLowerCase()) ) {
-              return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
-                <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
-                <CardTexto>
-                  <CardNome>{restaurante.name}</CardNome>
-                  <CardInfo>{restaurante.deliveryTime}min</CardInfo>
-                  <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
-                </CardTexto>
-              </CardRestaurante>
-        }
-      });
-
-      return <ListaRestaurantes>
-          {resultados}
-          {resultados && <ResultadoTexto>Não encontramos :(</ResultadoTexto>}
-      </ListaRestaurantes>
-    }
-  }
-
-  const acionaFiltro = categoria => {
-    if( filtroCategoria === categoria ) {
-      setFiltroCategoria('');
+  const acionaCategoria = categoria => {
+    if (filtroCategoria === categoria) {
+      filtrosContext.dispatch({ type: "RESET_FILTERS" });
+      setFiltroCategoria(null);
 
     } else {
       setFiltroCategoria(categoria);
+
+      filtrosContext.dispatch({ type: "SET_FILTRO", filtroCategoria: categoria });
     }
   }
 
-  const filtraLista = () => {
-    if(filtroCategoria === '') {
-      let listaFiltrados = listaRestaurantes.map( restaurante => {
-        return <CardRestaurante key={restaurante.id} onClick={()=> clicaRestaurante(restaurante.id)}>
-          <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
-          <CardTexto>
-            <CardNome>{restaurante.name}</CardNome>
-            <CardInfo>{restaurante.deliveryTime}min</CardInfo>
-            <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
-          </CardTexto>
-        </CardRestaurante>
-      });
+  let listaRestaurantesFiltrada = listaRestaurantes;
 
-      return listaFiltrados;
+  if( filtrosContext.filtroCategoria !== null ) {
+    listaRestaurantesFiltrada = listaRestaurantesFiltrada.filter( restaurante => {
+      return restaurante.category === filtrosContext.filtroCategoria;
+    })
+  }
+
+  if(busca) {
+    if(filtroBusca.length < 2) {
+      listaRestaurantesFiltrada = [];
     } else {
-      let listaFiltrados = listaRestaurantes.map( restaurante => {
-        if( restaurante.category === filtroCategoria ) {
-          return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
-            <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
-            <CardTexto>
-              <CardNome>{restaurante.name}</CardNome>
-              <CardInfo>{restaurante.deliveryTime}min</CardInfo>
-              <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
-            </CardTexto>
-          </CardRestaurante>
-        }
-      });
-
-      return listaFiltrados;
+      listaRestaurantesFiltrada = listaRestaurantesFiltrada.filter( restaurante => {
+        return restaurante.name.toLowerCase().includes(filtroBusca.toLowerCase());
+      })
     }
-
   }
 
   const clicaRestaurante = id => {
@@ -136,19 +102,35 @@ const TelaHome = () => {
 
   return <Container>
     
-    {!busca ? <Header><HeaderTitulo>Rappi</HeaderTitulo></Header> : <Header><HeaderIcone onClick={saiBusca}>voltar</HeaderIcone><HeaderTitulo>Busca</HeaderTitulo></Header> }
+    {!busca ? <Header><HeaderTitulo>Rappi</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
     
     <ContainerBusca>
-      <InputBusca value={inputBusca} onChange={aoMudarInputBusca} onClick={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
+      <InputBusca value={filtroBusca} onChange={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
     </ContainerBusca>
-    
-    {!busca ? <ListaRestaurantes>
-      <ContainerFiltro>
-        {categorias.map( categoria => {
-          return <FiltroCategoria key={categoria} onClick={() => acionaFiltro(categoria)} color={categoria} filtro={filtroCategoria}>{categoria}</FiltroCategoria>
-      })}</ContainerFiltro>
-      {filtraLista()}
-    </ListaRestaurantes> : buscaLista() }
+
+    <ListaRestaurantes>
+      {busca && filtroBusca.length < 3 && <ResultadoTexto>Busque por nome de restaurantes</ResultadoTexto>}
+
+      {busca && filtroBusca.length > 3 &&listaRestaurantesFiltrada.length === 0 && <ResultadoTexto>Nada encontrado :(</ResultadoTexto>}
+
+      {!busca && <ContainerFiltro>
+          {categorias.map( categoria => {
+            return <FiltroCategoria key={categoria} onClick={() => acionaCategoria(categoria)} color={categoria} filtro={filtroCategoria}>{categoria}</FiltroCategoria>
+      })}</ContainerFiltro>}
+      
+      {listaRestaurantesFiltrada.map( restaurante => {
+            return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
+              <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
+              <CardTexto>
+                <CardNome>{restaurante.name}</CardNome>
+                <CardInfo>{restaurante.deliveryTime}min</CardInfo>
+                <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
+              </CardTexto>
+            </CardRestaurante>
+        })
+      }
+    </ListaRestaurantes>
+
   </Container>
 }
 
