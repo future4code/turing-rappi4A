@@ -50,7 +50,7 @@ function TelaLogin() {
     .then(response => {
       window.localStorage.setItem("token", response.data.token);
       cleanForm()
-      if(response.data.user.hasAdress === true){
+      if(response.data.user.hasAddress === true){
         history.push("/home");
       } else {
         history.push("/cadastro");

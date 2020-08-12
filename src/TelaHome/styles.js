@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div `
     margin: auto;
+    padding-bottom: 48px;
     max-width: 360px;
     display: flex;
     flex-direction: column;
@@ -23,7 +24,7 @@ export const HeaderTitulo = styled.p `
     text-align: center;
 `
 
-export const HeaderIcone = styled.div `
+export const HeaderIcone = styled.img `
     position: absolute;
     left: 12px;
     top: 12px;
@@ -67,6 +68,7 @@ export const FiltroCategoria = styled.h3 `
     margin: 0 8px;
     font-size: 16px;
     font-weight: 400;
+    cursor: pointer;
     color: ${props => {
         if(props.color === props.filtro) {
             return '#e86e5a'
@@ -90,7 +92,7 @@ export const CardRestaurante = styled.div `
     margin: 8px auto;
     border-radius: 8px;
     border: solid 1px #b8b8b8;
-    box-sizing: border-box;
+    cursor: pointer;
 `
 
 export const CardImagem = styled.img `
@@ -99,7 +101,6 @@ export const CardImagem = styled.img `
     margin: 0 auto;
     padding: 0;
     border-radius: 8px 8px 0 0;
-    box-sizing: border-box;
     object-fit: cover;
 `
 
@@ -111,7 +112,6 @@ export const CardTexto = styled.div `
     flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
-    box-sizing: border-box;
 `
 
 export const CardNome = styled.h2 `
@@ -132,7 +132,7 @@ export const CardInfo = styled.p `
 
 export const ResultadoTexto = styled.p `
     width: 100%;
-    margin: 12px;
+    margin: 12px 0;
     padding: 0;
     font-size: 16px;
     text-align: center;
