@@ -11,7 +11,7 @@ import iconeVoltar from '../Images/back.svg';
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A/restaurants";
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlNhbzVjaHlVeTRpTnAwOEFSS2RQIiwibmFtZSI6IkFzdHJvZGV2IiwiZW1haWwiOiJhc3Ryb2RldkBmdXR1cmU0LmNvbSIsImNwZiI6IjExMS4xMTEuMTExLTExIiwiaGFzQWRkcmVzcyI6dHJ1ZSwiYWRkcmVzcyI6IlIuIEFmb25zbyBCcmF6LCAxNzcsIDcxIC0gVmlsYSBOLiBDb25jZWnDp8OjbyIsImlhdCI6MTU5NzA4NjMyOX0.5sB9zep0fhCNZurtNCGHCtNuIftrLCX2LAhT8CgLZDE";
+const token = window.localStorage.getItem('token');
 
 const axiosConfig = {
   headers: {
