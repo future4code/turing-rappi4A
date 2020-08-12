@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import useProtectedRoute from '../Hooks/useProtectedRoute';
 import FiltrosContext from '../Contexts/FiltrosContext'
 import Menu from '../Components/Menu/index'
 
@@ -9,18 +10,18 @@ import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerF
 import iconeVoltar from '../Images/back.svg';
 import iconeBusca from '../Images/search.svg';
 
-const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A/restaurants";
-
-const token = window.localStorage.getItem('token');
-
-const axiosConfig = {
-  headers: {
-    auth: token,
-  }
-}
 
 const TelaHome = () => {
   const history = useHistory();
+  const token = useProtectedRoute();
+  
+  const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A/restaurants";
+  
+  const axiosConfig = {
+    headers: {
+      auth: token,
+    }
+  }
 
   const [ listaRestaurantes, setListaRestaurantes ] = useState([]);
   const filtrosContext = useContext(FiltrosContext);
