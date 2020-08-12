@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico } from './styles';
 import Editar from '../Components/Editar'
 import EditarEndereco from '../Components/EditarEndereco'
+import Loading from '../Components/Loading'
 import axios from 'axios'
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
@@ -16,7 +17,7 @@ const axiosConfig = {
 
 function TelaDePerfil() {
   const [trocarTela, setTrocarTela] = useState("perfil")
-  const [dados, setDados] = useState({})
+  const [dados, setDados] = useState("")
   const [endereco, setEndereco] = useState("")
   const [historico, setHistorico] = useState([])
 
@@ -65,56 +66,60 @@ function TelaDePerfil() {
 
   return (
     <ContainerPerfil>
-      { trocarTela === "perfil" && 
-      <><Header>
-        <h2>Meu perfil</h2>
-      </Header>
-      <DadosPessoais>
-        <div>
-          <p>{dados.name}</p>
-          <p>{dados.email}</p>
-          <p>{dados.cpf}</p>
-        </div>
-        <span onClick={() => onClickMudar("editar")}>editar</span>
-      </DadosPessoais>
-      <InfoEndereco>
+      { dados === "" && endereco === "" ?
+        <Loading />
+      :
+        <>{ trocarTela === "perfil" && 
+        <><Header>
+          <h2>Meu perfil</h2>
+        </Header>
+        <DadosPessoais>
           <div>
-            <p>Endereço cadastrado</p>
-            { endereco && <p>{endereco.street}, {endereco.number} - {endereco.city}</p>}
+            <p>{dados.name}</p>
+            <p>{dados.email}</p>
+            <p>{dados.cpf}</p>
           </div>
-          <span onClick={() => onClickMudar("endereco")}>editar</span>
-      </InfoEndereco>
-      <Historico>
-        <h3>Histórico de pedidos</h3>
-        { historico.length === 0 ?
-          <p>Você não realizou nenhum pedido</p>
-        :
-          <ul>
-            {historico.map(pedido => {
-              return (
-                <li>{pedido}</li>
-              )
-            })}
-          </ul>
+          <span onClick={() => onClickMudar("editar")}>editar</span>
+        </DadosPessoais>
+        <InfoEndereco>
+            <div>
+              <p>Endereço cadastrado</p>
+              { endereco && <p>{endereco.street}, {endereco.number} - {endereco.city}</p>}
+            </div>
+            <span onClick={() => onClickMudar("endereco")}>editar</span>
+        </InfoEndereco>
+        <Historico>
+          <h3>Histórico de pedidos</h3>
+          { historico.length === 0 ?
+            <p>Você não realizou nenhum pedido</p>
+          :
+            <ul>
+              {historico.map(pedido => {
+                return (
+                  <li>{pedido}</li>
+                )
+              })}
+            </ul>
+          }
+        </Historico></>}
+        {trocarTela === "editar" &&
+          <Editar
+            onClickMudar={onClickMudar}
+            dados={dados}
+            baseUrl={baseUrl}
+            token={token}
+            axiosConfig={axiosConfig}
+          />
         }
-      </Historico></>}
-      {trocarTela === "editar" &&
-        <Editar
-          onClickMudar={onClickMudar}
-          dados={dados}
-          baseUrl={baseUrl}
-          token={token}
-          axiosConfig={axiosConfig}
-        />
+        {trocarTela === "endereco" &&
+          <EditarEndereco
+            onClickMudar={onClickMudar}
+            endereco={endereco}
+            baseUrl={baseUrl}
+            token={token}
+            axiosConfig={axiosConfig}
+          /> }</>
       }
-      {trocarTela === "endereco" &&
-        <EditarEndereco
-          onClickMudar={onClickMudar}
-          endereco={endereco}
-          baseUrl={baseUrl}
-          token={token}
-          axiosConfig={axiosConfig}
-        /> }
     </ContainerPerfil>
   )
 }
