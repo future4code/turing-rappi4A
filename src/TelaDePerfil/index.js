@@ -4,6 +4,7 @@ import Editar from '../Components/Editar'
 import EditarEndereco from '../Components/EditarEndereco'
 import Loading from '../Components/Loading'
 import axios from 'axios'
+import Menu from "../Components/Menu/index"
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
 
@@ -120,6 +121,7 @@ function TelaDePerfil() {
             axiosConfig={axiosConfig}
           /> }</>
       }
+      <Menu/>
     </ContainerPerfil>
   )
 }
