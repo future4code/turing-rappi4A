@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {useHistory} from 'react-router-dom'
 import axios from 'axios'
 import {Login, FormLogin, FormInputEmail, FormInputPassword, RectangleInputEmail, RectangleInputPassword, 
-        RectangleButton, InputNolocusEmail, InputNolocusPassword, Title,Text, ButtonEnter, ButtonNolocus, 
-        LabelInput, RectangleLabelEmail, RectangleLabelPassword, TitleEnter, LogoIcon, ViewPasswordIcon} from './styles'
+        Title,Text, ButtonEnter, LabelInput, RectangleLabelEmail, RectangleLabelPassword, TitleEnter, 
+        LogoIcon, ViewPasswordIcon} from './styles'
 import Logo from '../logo-invert.png'
 import Senha from '../senha.png'
 
@@ -69,42 +69,34 @@ function TelaLogin() {
         <p>Entrar</p>
       </TitleEnter>
       <FormLogin onSubmit={login}>
-        <InputNolocusEmail>
-          <RectangleInputEmail>
-            <RectangleLabelEmail>
-              <LabelInput>E-mail *</LabelInput>
-            </RectangleLabelEmail>
-            <FormInputEmail 
-              value={form.email}
-              name= "email"
-              placeholder= "email@email.com"
-              type='email'    
-              onChange={handleInputChange}
-              required
-            />
-          </RectangleInputEmail>
-        </InputNolocusEmail>
-        <InputNolocusPassword>
-          <RectangleInputPassword>
-            <RectangleLabelPassword>
-              <LabelInput>Senha *</LabelInput>
-            </RectangleLabelPassword>
-            <FormInputPassword
-              value={form.password}
-              name= "password"
-              placeholder="Mínimo 6 caracteres" 
-              type={password ? "password" : "text"}
-              onChange={handleInputChange}
-              required  
-            />
-            <ViewPasswordIcon onClick={changePassword} src={Senha} alt="View Password Icon"/>
-          </RectangleInputPassword>
-        </InputNolocusPassword>
-        <ButtonNolocus>
-          <RectangleButton>
-            <ButtonEnter>Entrar</ButtonEnter>
-          </RectangleButton>
-        </ButtonNolocus>
+        <RectangleInputEmail>
+          <RectangleLabelEmail>
+            <LabelInput>E-mail *</LabelInput>
+          </RectangleLabelEmail>
+          <FormInputEmail 
+            value={form.email}
+            name= "email"
+            placeholder= "email@email.com"
+            type='email'    
+            onChange={handleInputChange}
+            required
+          />
+        </RectangleInputEmail>
+        <RectangleInputPassword>
+          <RectangleLabelPassword>
+            <LabelInput>Senha *</LabelInput>
+          </RectangleLabelPassword>
+          <FormInputPassword
+            value={form.password}
+            name= "password"
+            placeholder="Mínimo 6 caracteres" 
+            type={password ? "password" : "text"}
+            onChange={handleInputChange}
+            required  
+          />
+          <ViewPasswordIcon onClick={changePassword} src={Senha} alt="View Password Icon"/>
+        </RectangleInputPassword>
+        <ButtonEnter>Entrar</ButtonEnter>
       </FormLogin>
       <Title>
         <Text>Não possui cadastro?<span onClick={telaDeCadastro}> Clique aqui </span></Text>
