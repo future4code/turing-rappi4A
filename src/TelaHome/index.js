@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom';
 import useProtectedRoute from '../Hooks/useProtectedRoute';
 import FiltrosContext from '../Contexts/FiltrosContext'
 import Menu from '../Components/Menu/index'
+import Loading from '../Components/Loading';
 
 import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerFiltro, FiltroCategoria, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone } from './styles';
 
@@ -66,6 +67,8 @@ const TelaHome = () => {
 
   const saiBusca = () => {
     setBusca(false);
+    setFiltroBusca('');
+    filtrosContext.dispatch({ type: "RESET_BUSCA" });
   }
 
   const acionaCategoria = categoria => {
@@ -99,41 +102,44 @@ const TelaHome = () => {
   }
 
   const clicaRestaurante = id => {
+    setFiltroBusca('');
+    filtrosContext.dispatch({ type: "RESET_BUSCA" });
     history.push(`/restaurantes/${id}`)
   }
 
-  return <Container>
-    
-    {!busca ? <Header><HeaderTitulo>Rappi4</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
-    
-    <ContainerBusca>
-      <InputBusca value={filtroBusca} onChange={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
-    </ContainerBusca>
-
-    <ListaRestaurantes>
-      {busca && filtroBusca.length < 3 && <ResultadoTexto>Busque por nome de restaurantes</ResultadoTexto>}
-
-      {busca && filtroBusca.length > 3 &&listaRestaurantesFiltrada.length === 0 && <ResultadoTexto>Nada encontrado :(</ResultadoTexto>}
-
-      {!busca && <ContainerFiltro>
-          {categorias.map( categoria => {
-            return <FiltroCategoria key={categoria} onClick={() => acionaCategoria(categoria)} color={categoria} filtro={filtroCategoria}>{categoria}</FiltroCategoria>
-      })}</ContainerFiltro>}
+  return <>
+    {!listaRestaurantesFiltrada || !busca && listaRestaurantesFiltrada.length === 0 ? <Loading /> : <Container>
+      {!busca ? <Header><HeaderTitulo>Rappi4</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
       
-      {listaRestaurantesFiltrada.map( restaurante => {
-            return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
-              <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
-              <CardTexto>
-                <CardNome>{restaurante.name}</CardNome>
-                <CardInfo>{restaurante.deliveryTime}min</CardInfo>
-                <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
-              </CardTexto>
-            </CardRestaurante>
-        })
-      }
-    </ListaRestaurantes>
-    <Menu />
-  </Container>
+      <ContainerBusca>
+        <InputBusca value={filtroBusca} onChange={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
+      </ContainerBusca>
+
+      <ListaRestaurantes>
+        {busca && filtroBusca.length < 3 && <ResultadoTexto>Busque por nome de restaurantes</ResultadoTexto>}
+
+        {busca && filtroBusca.length > 3 &&listaRestaurantesFiltrada.length === 0 && <ResultadoTexto>Nada encontrado :(</ResultadoTexto>}
+
+        {!busca && <ContainerFiltro>
+            {categorias.map( categoria => {
+              return <FiltroCategoria key={categoria} onClick={() => acionaCategoria(categoria)} color={categoria} filtro={filtroCategoria}>{categoria}</FiltroCategoria>
+        })}</ContainerFiltro>}
+        
+        {listaRestaurantesFiltrada.map( restaurante => {
+              return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
+                <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
+                <CardTexto>
+                  <CardNome>{restaurante.name}</CardNome>
+                  <CardInfo>{restaurante.deliveryTime}min</CardInfo>
+                  <CardInfo>{restaurante.shipping ? `R$${restaurante.shipping},00` : 'Frete grátis'}</CardInfo>
+                </CardTexto>
+              </CardRestaurante>
+          })
+        }
+      </ListaRestaurantes>
+      <Menu />
+    </Container>}
+  </>
 }
 
 export default TelaHome;
