@@ -187,6 +187,7 @@ const onClickMudar = () => {
       <CriarEndereco onClickMudar={onClickMudar} baseUrl={baseUrl}/>
     }
    </div>
+   </div>
   )
 }
 
