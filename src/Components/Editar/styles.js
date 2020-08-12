@@ -11,8 +11,12 @@ export const ContainerEditar = styled.div`
 `
 
 export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 16px;
-   padding-top: 24px;
+    padding-top: 24px;
+    width: 100%;
 
     div {
         position: relative;
@@ -39,7 +43,7 @@ export const Form = styled.form`
     }
 
     input {
-        width: 89vw;
+        width: 92vw;
         height: 56px;
         border-radius: 4px;
         border: solid 1px #b8b8b8;

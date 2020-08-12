@@ -1,9 +1,13 @@
 import React from 'react';
-
-// import { Container } from './styles';
+import { ContainerTelaInicial } from './styles';
+import Logo from '../Images/logo.svg'
 
 function TelaInicial() {
-  return <div />;
+  return (
+    <ContainerTelaInicial>
+      <img src={Logo} alt="Logo Rappi4"/>
+    </ContainerTelaInicial>
+  )
 }
 
 export default TelaInicial;
