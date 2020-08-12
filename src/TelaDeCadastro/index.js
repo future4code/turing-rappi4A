@@ -1,11 +1,10 @@
 import React, {useState, useEffect } from 'react';
 import axios from "axios";
 import { useHistory, useParams } from 'react-router-dom';
-import {CamposDeCadastro} from "./styles"
+import {CamposDeCadastro, Imagem, Form} from "./styles"
 import useInput from "../Hooks/useInput"
 import VendoSenha from "../Images/VendoSenha.png"
 import NaoVendoSenha from "../Images/NaoVendoSenha.png"
-// import { Form } from "../Components/Editar/styles";
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A";
 
@@ -30,7 +29,7 @@ function TelaDeCadastro() {
     onChange(name, value);
 };
 
-  const lidaCadastro = event => {
+  const lidaCadastro = () => {
     const body = {
       "name": form.nome,
 	    "email": form.email,
@@ -46,6 +45,7 @@ function TelaDeCadastro() {
       alert(`${form.nome}, seja bem vindo(a)`)
     }).catch(e => {
       console.log(e.message)
+      alert("Usuário já cadastrado")
     })
     
 }
@@ -53,26 +53,27 @@ function TelaDeCadastro() {
   const salvaCadastro = (event)=>{
     event.preventDefault()
     if(form.senha === form.confirmarSenha){
+      setConcluido(true)
       lidaCadastro()
     }else{
-      setConcluido(!concluido)
+      setConcluido(false)
       alert(`As senhas e não coincidem!`)
     }
   }
 
   const botaoVerSenha = ()=>{
     if(verSenha === false){
-      return <img src={NaoVendoSenha} onClick={vizualizarSenha}/>
+      return <Imagem src={NaoVendoSenha} onClick={vizualizarSenha}/>
     }else{
-      return <img src={VendoSenha} onClick={vizualizarSenha}/>
+      return <Imagem src={VendoSenha} onClick={vizualizarSenha}/>
     }
   }
 
   const botaoVerConfirmaSenha = ()=>{
     if(verConfirmaSenha === false){
-      return <img src={NaoVendoSenha} onClick={vizualizarConfirmaSenha}/>
+      return <Imagem src={NaoVendoSenha} onClick={vizualizarConfirmaSenha}/>
     }else{
-      return <img  src={VendoSenha} onClick={vizualizarConfirmaSenha}/>
+      return <Imagem  src={VendoSenha} onClick={vizualizarConfirmaSenha}/>
     }
   }
 
@@ -96,11 +97,11 @@ function TelaDeCadastro() {
     <div>
      <div>
        <h2>Efetue o Cadastro</h2>
-       <form onSubmit={salvaCadastro}>
+       <Form onSubmit={salvaCadastro}>
          <div>
            <label>Nome*</label>
             <CamposDeCadastro
-              borda={"1px solid black"} 
+              borda={"1px solid #b8b8b8"} 
               placeholder={"Nome*"}
               type={"text"}
               name={"nome"} 
@@ -112,7 +113,7 @@ function TelaDeCadastro() {
           <div>
             <label>Email*</label>
             <CamposDeCadastro 
-              borda={"1px solid black"} 
+              borda={"1px solid #b8b8b8"} 
               placeholder={"Email*"}
               type={"email"}
               name={"email"}  
@@ -124,7 +125,7 @@ function TelaDeCadastro() {
           <div>
             <label>CPF*</label>
             <CamposDeCadastro 
-              borda={"1px solid black"} 
+              borda={"1px solid #b8b8b8"} 
               placeholder={"Ex: 123.456.789-10"}
               name={"cpf"} 
               value={form.cpf} 
@@ -136,7 +137,7 @@ function TelaDeCadastro() {
           <div>
             <label>Senha*</label>
             <CamposDeCadastro 
-              borda={concluido === true ? "1px solid black" : "1.5px solid red"}
+              borda={concluido === true ? "1px solid #b8b8b8" : "1.5px solid red"}
               placeholder={"Senha"} 
               type={verSenha === false ? "password" : "text"} 
               name={"senha"} 
@@ -149,7 +150,7 @@ function TelaDeCadastro() {
           <div>
             <label>Confirmar*</label>
             <CamposDeCadastro 
-              borda={concluido === true ? "1px solid black" : "1.5px solid red"}
+              borda={concluido === true ? "1px solid #b8b8b8" : "1.5px solid red"}
               placeholder={"Confirmar"} 
               type={verConfirmaSenha === false ? "password" : "text"} 
               name={"confirmarSenha"} 
@@ -160,7 +161,7 @@ function TelaDeCadastro() {
               {botaoVerConfirmaSenha()}
           </div>
           <button>Cadastrar</button>
-       </form>
+       </Form>
     </div>
    </div>
   )
