@@ -6,9 +6,10 @@ export const ContainerMenu = styled.div`
     grid-template-columns: repeat(3, 1fr);
     height: 49px;
     justify-content: center;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     width: 100vw;
+    background-color: #fff;
 
     div {
         align-items: center;

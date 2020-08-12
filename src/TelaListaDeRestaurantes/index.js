@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { useHistory, useParams } from 'react-router-dom';
 
+import Menu from '../Components/Menu/index'
 import CarrinhoContext from '../Contexts/CarrinhoContext'
 
 import { Container, Overlay, Header, HeaderTitulo, HeaderIcone, ListaRestaurantes, ListaCategoria, CardRestaurante, CardImagemRestaurante, CardProduto, CardImagem, CardTexto, CardNome, CardDescription, CardPrice, CardInfo, CardTextoDelivery, BtnQuantidade, BtnAlteraQuantidade, BoxQuantidade, BoxTexto, BoxSelect, BoxBtn } from './styles';
@@ -147,6 +148,7 @@ function TelaListaDeRestaurantes() {
         })}
       </ListaRestaurantes>
     })}
+    <Menu />
   </Container>
 }
 

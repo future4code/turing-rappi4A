@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import FiltrosContext from '../Contexts/FiltrosContext'
+import Menu from '../Components/Menu/index'
 
 import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerFiltro, FiltroCategoria, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone } from './styles';
 
@@ -102,7 +103,7 @@ const TelaHome = () => {
 
   return <Container>
     
-    {!busca ? <Header><HeaderTitulo>Rappi</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
+    {!busca ? <Header><HeaderTitulo>Rappi4</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
     
     <ContainerBusca>
       <InputBusca value={filtroBusca} onChange={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
@@ -130,7 +131,7 @@ const TelaHome = () => {
         })
       }
     </ListaRestaurantes>
-
+    <Menu />
   </Container>
 }
 

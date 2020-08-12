@@ -2,6 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div `
     margin: auto;
+    padding-bottom: 48px;
     max-width: 360px;
     display: flex;
     flex-direction: column;
@@ -131,7 +132,7 @@ export const CardInfo = styled.p `
 
 export const ResultadoTexto = styled.p `
     width: 100%;
-    margin: 12px;
+    margin: 12px 0;
     padding: 0;
     font-size: 16px;
     text-align: center;
