@@ -38,7 +38,7 @@ function Editar(props) {
   return (
       <ContainerEditar>
           <Header>
-              <span onClick={() => props.onClickMudar("perfil")}>voltar</span>
+              <img src={props.iconeVoltar} alt="voltar" onClick={() => props.onClickMudar("perfil")} />
               <h2>Editar</h2>
           </Header>
           <Form onSubmit={editarPerfil}>
