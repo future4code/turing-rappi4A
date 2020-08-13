@@ -102,7 +102,6 @@ function TelaListaDeRestaurantes() {
     history.push(`/home`)
   }
 
-  console.log(carrinhoContext.carrinho)
   return <>
     {!detalhesRestaurante || detalhesRestaurante === "" ? <Loading /> : <Container>
       <Overlay aparece={boxQuantidade}></Overlay>
