@@ -5,16 +5,17 @@ import { useHistory } from 'react-router-dom';
 import { Form } from '../Editar/styles'
 import axios from 'axios'
 import useInput from '../../Hooks/useInput';
-
-const token = window.localStorage.getItem('token');
-
-const axiosConfig = {
-  headers: {       
-    auth: token     
-  } 
-}
+import useProtectedRoute from '../../Hooks/useProtectedRoute';
 
 function CriarEndereco(props) {
+    const token = useProtectedRoute()
+
+    const axiosConfig = {
+      headers: {       
+        auth: token     
+      } 
+    }
+
     const { form, onChange, resetaEntrada } = useInput({
         street: "",
         number: "",
@@ -43,12 +44,13 @@ function CriarEndereco(props) {
             state: form.state
         }
         console.log(body)
+        console.log(axiosConfig)
         axios
         .put(`${props.baseUrl}/address`, body, axiosConfig)
         .then(response => {
           console.log(response.data)
           alert("Endereço salvo com sucesso")
-          history.push("/home")
+          history.push("/login")
         })
         .catch(err => {
           console.log(err.message)
@@ -58,7 +60,7 @@ function CriarEndereco(props) {
   return (
       <ContainerCriarEndereco>
           <Header>
-              <span onClick={() => props.onClickMudar}>voltar</span>
+              {/* <span onClick={() => props.onClickMudar}>voltar</span> */}
               <h2>Endereço</h2>
           </Header>
           <Form onSubmit={editarEndereco}>
