@@ -26,12 +26,12 @@ function TelaDeCadastro() {
     senha: '',
     confirmarSenha: '',
   })
-
+  
   const handleInputChange = event => {
     const { name, value} = event.target;
-
+    
     onChange(name, value);
-};
+  };
 
   const lidaCadastro = () => {
     const body = {
@@ -46,23 +46,24 @@ function TelaDeCadastro() {
       window.localStorage.setItem("token", response.data.token)
       console.log(response.data)
       console.log(form.nome, form.email, form.cpf, form.senha, form.confirmarSenha)
+      onClickMudar()
     }).catch(e => {
       console.log(e.message)
       alert("Usuário já cadastrado")
     })
     
-}
-
-const onClickMudar = () => {
-  setTrocarTela(!trocarTela)
-}
+  }
+  
+  const onClickMudar = () => {
+    setTrocarTela(!trocarTela)
+  }
+  
 
   const salvaCadastro = (event)=>{
     event.preventDefault()
     if(form.senha === form.confirmarSenha){
       setConcluido(true)
       lidaCadastro()
-      onClickMudar()
     }else{
       setConcluido(false)
       alert(`As senhas e não coincidem!`)
