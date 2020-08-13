@@ -1,5 +1,41 @@
 import styled from "styled-components";
 
+export const Header = styled.div`
+        border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+        padding: 16px 0 12px 0;
+        position: relative;
+
+    img {
+        margin-left: 16px;
+    }
+`
+
+export const ContainerLogo = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    img {
+        margin-bottom: 28px;
+        margin-top: 24px;
+    }
+
+    h2 {
+        font-family: Roboto;
+        font-size: 16px;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        height: 19px;
+        line-height: normal;
+        letter-spacing: -0.39px;
+        margin: 0;
+        margin-bottom: 12px;
+        text-align: center;
+        width: 100vw;
+    }
+`
+
 export const CamposDeCadastro = styled.input`
     border: ${props => props.borda};
     width: 92vw;
@@ -14,8 +50,12 @@ export const Imagem = styled.img`
     top: 16px;
 `
 export const Form = styled.form`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding: 16px;
-    padding-top: 24px;
+    padding-top: 16px;
+    width: 100%;
 
     div {
         position: relative;
@@ -42,7 +82,7 @@ export const Form = styled.form`
     }
 
     input {
-        width: 89vw;
+        width: 92vw;
         height: 56px;
         border-radius: 4px;
         margin-bottom: 16px;

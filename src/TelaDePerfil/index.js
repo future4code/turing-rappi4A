@@ -1,21 +1,29 @@
 import React, { useState, useEffect } from 'react';
+
 import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico } from './styles';
+
 import Editar from '../Components/Editar'
 import EditarEndereco from '../Components/EditarEndereco'
 import Loading from '../Components/Loading'
 import axios from 'axios'
+import Menu from "../Components/Menu/index"
 
-const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
+import useProtectedRoute from '../Hooks/useProtectedRoute';
 
-const token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IlNhbzVjaHlVeTRpTnAwOEFSS2RQIiwibmFtZSI6IkFzdHJvZGV2IiwiZW1haWwiOiJhc3Ryb2RldkBmdXR1cmU0LmNvbSIsImNwZiI6IjExMS4xMTEuMTExLTExIiwiaGFzQWRkcmVzcyI6dHJ1ZSwiYWRkcmVzcyI6IlIuIEFmb25zbyBCcmF6LCAxNzcsIDcxIC0gVmlsYSBOLiBDb25jZWnDp8OjbyIsImlhdCI6MTU5NzE1MjU1OX0.jkW02Y40ybamC8-qf3KTBKoXRcYSmxYowneqQSje-z4"
+import iconeVoltar from '../Images/back.svg';
 
-const axiosConfig = {
-  headers: {       
-    auth: token     
-  } 
-}
 
 function TelaDePerfil() {
+  const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
+  
+  const token = useProtectedRoute();
+  
+  const axiosConfig = {
+    headers: {       
+      auth: token     
+    } 
+  }
+  
   const [trocarTela, setTrocarTela] = useState("perfil")
   const [dados, setDados] = useState("")
   const [endereco, setEndereco] = useState("")
@@ -109,6 +117,7 @@ function TelaDePerfil() {
             baseUrl={baseUrl}
             token={token}
             axiosConfig={axiosConfig}
+            iconeVoltar={iconeVoltar}
           />
         }
         {trocarTela === "endereco" &&
@@ -118,8 +127,10 @@ function TelaDePerfil() {
             baseUrl={baseUrl}
             token={token}
             axiosConfig={axiosConfig}
+            iconeVoltar={iconeVoltar}
           /> }</>
       }
+      <Menu/>
     </ContainerPerfil>
   )
 }

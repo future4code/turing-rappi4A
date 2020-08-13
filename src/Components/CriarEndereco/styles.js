@@ -1,11 +1,11 @@
 import styled from 'styled-components'
 
-export const ContainerEditarEndereco = styled.div`
+export const ContainerCriarEndereco = styled.div`
     position: relative;
 
-    div img {
+    div span {
         position: absolute;
-        top: 14px;
+        top: 16px;
         left: 16px;
     }
 `
