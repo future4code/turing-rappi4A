@@ -108,7 +108,7 @@ const TelaHome = () => {
   }
 
   return <>
-    {!listaRestaurantesFiltrada || !busca && listaRestaurantesFiltrada.length === 0 ? <Loading /> : <Container>
+    {!listaRestaurantes || !busca && listaRestaurantes.length === 0 ? <Loading /> : <Container>
       {!busca ? <Header><HeaderTitulo>Rappi4</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
       
       <ContainerBusca>
