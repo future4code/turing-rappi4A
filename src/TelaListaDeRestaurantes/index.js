@@ -69,9 +69,10 @@ function TelaListaDeRestaurantes() {
     setBoxQuantidade(produto)
   }
 
-  const adicionaQuantidadeProduto = (produto, quantidadeSelecionada) => {
+  const adicionaQuantidadeProduto = (produto, quantidadeSelecionada, restauranteId, restauranteName) => {
+    console.log(detalhesRestaurante)
     if ( quantidadeSelecionada > 0 ) {
-      carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada });
+      carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada, restauranteId: restauranteId, restauranteName: restauranteName });
     }
 
     setBoxQuantidade(false);
@@ -101,6 +102,7 @@ function TelaListaDeRestaurantes() {
     history.push(`/home`)
   }
 
+  console.log(carrinhoContext.carrinho)
   return <>
     {!detalhesRestaurante || detalhesRestaurante === "" ? <Loading /> : <Container>
       <Overlay aparece={boxQuantidade}></Overlay>
@@ -117,7 +119,7 @@ function TelaListaDeRestaurantes() {
           <CardInfo>{detalhesRestaurante.address}</CardInfo>
       </CardRestaurante>}
 
-      {produtos && categorias.map( categoria => {
+      {detalhesRestaurante && produtos && categorias.map( categoria => {
         return <ListaRestaurantes key={categoria}>
           <ListaCategoria>{categoria}</ListaCategoria>
           {produtos.map( produto => {
@@ -144,7 +146,7 @@ function TelaListaDeRestaurantes() {
                   <BoxSelect onChange={contolaQuantidadeProduto} value={quantidadeSelecionada}>
                     {optionQuantidade()}
                   </BoxSelect>
-                <BoxBtn onClick={() => adicionaQuantidadeProduto(produto, quantidadeSelecionada)}>Adicionar ao carrinho</BoxBtn>
+                <BoxBtn onClick={() => adicionaQuantidadeProduto(produto, quantidadeSelecionada, detalhesRestaurante.id, detalhesRestaurante.name)}>Adicionar ao carrinho</BoxBtn>
               </BoxQuantidade>}
               
             </CardProduto>

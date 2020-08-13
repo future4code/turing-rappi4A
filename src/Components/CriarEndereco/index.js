@@ -6,6 +6,7 @@ import { Form } from '../Editar/styles'
 import axios from 'axios'
 import useInput from '../../Hooks/useInput';
 import useProtectedRoute from '../../Hooks/useProtectedRoute';
+<<<<<<< HEAD
 
 function CriarEndereco(props) {
     const token = useProtectedRoute()
@@ -16,6 +17,18 @@ function CriarEndereco(props) {
       } 
     }
 
+=======
+
+function CriarEndereco(props) {
+  const token = useProtectedRoute();
+      
+  const axiosConfig = {
+    headers: {       
+      auth: token     
+    } 
+  }
+
+>>>>>>> master
     const { form, onChange, resetaEntrada } = useInput({
         street: "",
         number: "",
@@ -29,7 +42,6 @@ function CriarEndereco(props) {
 
     const handleInputChange = event => {
         const { name, value } = event.target
-        
         onChange(name, value)
     }
 

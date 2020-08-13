@@ -17,7 +17,7 @@ export const initialState = {
       let novoCarrinho;
 
       if (produtosNoCarrinho === -1) {
-        novoCarrinho = [...state.carrinho, { ...action.produto, quantity: action.quantidadeSelecionada }];
+        novoCarrinho = [...state.carrinho, { ...action.produto, quantity: action.quantidadeSelecionada, restauranteId: action.restauranteId, restauranteName: action.restauranteName }];
       } else {
         novoCarrinho = state.carrinho.map(produto => {
           if (produto.id === action.produto.id) {
