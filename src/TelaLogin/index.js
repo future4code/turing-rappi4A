@@ -6,25 +6,14 @@ import {Login, FormLogin, FormInputEmail, FormInputPassword, RectangleInputEmail
         LogoIcon, ViewPasswordIcon} from './styles'
 import Logo from '../logo-invert.png'
 import Senha from '../senha.png'
+import useInput from '../Hooks/useInput'
 
-const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A/login"
-
-const useForm = initialValues => {
-  const [form, setForm] = useState(initialValues);
-  const onChange = (name, value) => {
-    const newForm = { ...form, [name]: value };
-    setForm(newForm);
-  };
-  const cleanForm = () => {
-    setForm(initialValues);
-  };
-  return {form, onChange, cleanForm};
-};
+const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
 
 function TelaLogin() {
   const [password, setPassword] = useState(true);
   const history = useHistory();
-  const {form, onChange, cleanForm} = useForm({email: "", password: ""});
+  const {form, onChange, resetaEntrada} = useInput({email: "", password: ""});
 
   const handleInputChange = event => {
     const {name, value} = event.target;
@@ -46,10 +35,10 @@ function TelaLogin() {
       email: form.email,
       password: form.password
     }
-    axios.post(baseUrl, body)
+    axios.post(`${baseUrl}/login`, body)
     .then(response => {
       window.localStorage.setItem("token", response.data.token);
-      cleanForm()
+      resetaEntrada()
       if(response.data.user.hasAddress === true){
         history.push("/home");
       } else {

@@ -68,17 +68,15 @@ function TelaListaDeRestaurantes() {
 
     setBoxQuantidade(produto)
   }
-
+  
   const adicionaQuantidadeProduto = (produto, quantidadeSelecionada, restauranteId, restauranteName) => {
-    console.log(detalhesRestaurante)
     if ( quantidadeSelecionada > 0 ) {
-      carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada, restauranteId: restauranteId, restauranteName: restauranteName });
+      carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada, restauranteId: restauranteId });
     }
 
     setBoxQuantidade(false);
     setQuantidadeSelecionada(0);
   }
-
   const contolaQuantidadeProduto = e => {
     setQuantidadeSelecionada(e.target.value)
   }
