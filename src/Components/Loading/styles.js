@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-export const ContainerTelaInicial = styled.div`
+export const ContainerLoading = styled.div`
     align-items: center;
     background-color: #e86e5a;
     display: flex;
