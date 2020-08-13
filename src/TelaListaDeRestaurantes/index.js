@@ -67,14 +67,13 @@ function TelaListaDeRestaurantes() {
 
     setBoxQuantidade(produto)
   }
-  const adicionaQuantidadeProduto = (produto, quantidadeSelecionada) => {
+  const adicionaQuantidadeProduto = (produto, quantidadeSelecionada, restauranteId) => {
 
-    carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada });
+    carrinhoContext.dispatch({ type: "ADICIONA_PRODUTO_CARRINHO", produto: produto, quantidadeSelecionada: quantidadeSelecionada , restauranteId: restauranteId});
 
     setBoxQuantidade(false);
     setQuantidadeSelecionada(0);
   }
-
   const contolaQuantidadeProduto = e => {
     setQuantidadeSelecionada(e.target.value)
   }
@@ -140,7 +139,7 @@ function TelaListaDeRestaurantes() {
                 <BoxSelect onChange={contolaQuantidadeProduto} value={quantidadeSelecionada}>
                   {optionQuantidade()}
                 </BoxSelect>
-              <BoxBtn onClick={() => adicionaQuantidadeProduto(produto, quantidadeSelecionada)}>Adicionar ao carrinho</BoxBtn>
+              <BoxBtn onClick={() => adicionaQuantidadeProduto(produto, quantidadeSelecionada, detalhesRestaurante.id)}>Adicionar ao carrinho</BoxBtn>
             </BoxQuantidade>}
             
           </CardProduto>
