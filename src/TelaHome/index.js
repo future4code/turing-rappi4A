@@ -111,14 +111,14 @@ const TelaHome = () => {
     {!listaRestaurantes || !busca && listaRestaurantes.length === 0 ? <Loading /> : <Container>
       {!busca ? <Header><HeaderTitulo>Rappi4</HeaderTitulo></Header> : <Header><HeaderIcone src={iconeVoltar} onClick={saiBusca} alt="Ícone de voltar para a tela anterior" /><HeaderTitulo>Busca</HeaderTitulo></Header> }
       
-      <ContainerBusca>
+      <ContainerBusca data-testid="restaurante">
         <InputBusca value={filtroBusca} onChange={acionaBusca} placeholder="Restaurante" img={iconeBusca} />
       </ContainerBusca>
 
       <ListaRestaurantes>
         {busca && filtroBusca.length < 3 && <ResultadoTexto>Busque por nome de restaurantes</ResultadoTexto>}
 
-        {busca && filtroBusca.length > 3 &&listaRestaurantesFiltrada.length === 0 && <ResultadoTexto>Nada encontrado :(</ResultadoTexto>}
+        {busca && filtroBusca.length > 3 && listaRestaurantesFiltrada.length === 0 && <ResultadoTexto>Nada encontrado :(</ResultadoTexto>}
 
         {!busca && <ContainerFiltro>
             {categorias.map( categoria => {
@@ -126,7 +126,7 @@ const TelaHome = () => {
         })}</ContainerFiltro>}
         
         {listaRestaurantesFiltrada.map( restaurante => {
-              return <CardRestaurante key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
+              return <CardRestaurante data-testid={restaurante.name} key={restaurante.id}onClick={()=> clicaRestaurante(restaurante.id)}>
                 <CardImagem src={restaurante.logoUrl} alt="Foto do restaurante"/>
                 <CardTexto>
                   <CardNome>{restaurante.name}</CardNome>

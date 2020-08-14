@@ -80,7 +80,7 @@ export const CardImagemRestaurante = styled.img `
 export const CardProduto = styled.div `
     width: 100%;
     height: 112px;
-    margin: 8px auto;
+    margin: 8px auto 0 auto;
     border-radius: 8px;
     border: solid 1px #b8b8b8;
     display: flex;
