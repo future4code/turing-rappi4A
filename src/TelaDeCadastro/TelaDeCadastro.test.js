@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent , } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import axios from "axios";
 import { Router } from 'react-router-dom';
@@ -148,9 +148,6 @@ describe("Verficação de inputs controlados", ()=>{
     expect(inputSenha).toHaveValue("123456")
   })
 
-
-
-
   test('Verificando controle de confirmacao de senha', () => {
       const { getByPlaceholderText } = render(
             <Router history={history}>
@@ -168,4 +165,21 @@ describe("Verficação de inputs controlados", ()=>{
       
       expect(inputConfirmaSenha).toHaveValue("12345")
   })
+
+  
 })
+
+describe("Verificações do botão de cadastrar", ()=>{
+    test('Verificacao botao cadastro', () => {
+        const { getByTestId } = render(
+          <Router history={history}>
+              <TelaDeCadastro />
+          </Router>
+        )
+        
+        const botao = getByTestId("Cadastro")
+        expect(botao).toBeInTheDocument()     
+             
+    })     
+})
+
