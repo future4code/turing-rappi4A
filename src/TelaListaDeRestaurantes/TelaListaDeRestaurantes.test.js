@@ -54,7 +54,7 @@ const carrinho = [];
 const filtroCategoria = "Árabe";
 const filtroBusca = "";
 
-describe('Testa se os elementos do Restaurante aparecem na tela e se as interações retornam as ações esperadas', () => {
+describe.skip('Testa se os elementos do Restaurante aparecem na tela e se as interações retornam as ações esperadas', () => {
   test('Testa se aparece os detalhes do restaurante e os produtos', async() => {
     // Moca o useParams que pega a id da url para incluir as informações da página. Encontrei explicação nesse link: https://www.smashingmagazine.com/2020/07/react-apps-testing-library/
     useParams.mockReturnValue({ id: "1" });

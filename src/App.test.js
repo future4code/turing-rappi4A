@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitForElementToBeRemoved } from '@testing-library/react';
+import { render, screen, wait } from '@testing-library/react';
 import App from './App';
 
 import axios from "axios";
@@ -13,24 +13,22 @@ test('Renderiza a tela inicial', () => {
   expect(logoApp).toBeInTheDocument();
 });
 
-test('Faz o login e redireciona para a Home, onde aparece o menu', async() => {
+test.skip('Faz o login e redireciona para a Home, onde aparece o menu', async() => {
 
   const history = createMemoryHistory()
-  render(
+  const { debug } = render(
     <Router history={history}>
       <App />
     </Router>
   )
-
-  // const logoApp = screen.queryByAltText(/Logo Rappi4/i);
-  // expect(logoApp).toBeInTheDocument();
-
-  // jest.setTimeout(30000);
-
-  // expect(logoApp).not.toBeInTheDocument();
   
-  // await waitForElementToBeRemoved(() => {
-  //   const logoApp = screen.getByAltText(/Logo Rappi4/i);
-  //   logoApp
-  // }, 50000)
+  jest.setTimeout(30000);
+  debug(screen.getByTestId("app"))
+  
+  await wait(() => {
+    const logoApp = screen.queryByAltText(/Logo Rappi4/i);
+    expect(logoApp).not.toBeInTheDocument();
+  });
+  
+  
 });

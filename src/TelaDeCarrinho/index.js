@@ -49,8 +49,7 @@ function TelaDeCarrinho() {
   const getRestaurantDetail = () => {
     axios.get(`${baseUrl}/restaurants/${carrinhoContext.carrinho[0].restauranteId}`, axiosConfig)
     .then(response => {
-      setEnderecoRestaurante(response.data.restaurant)
-      console.log(response.data.restaurant)
+      setEnderecoRestaurante(response.data.restaurant);
     }).catch(err => {
       console.log(err.message)
     })
@@ -129,7 +128,7 @@ function TelaDeCarrinho() {
   })
 
   return (
-    <Cart>
+    <Cart data-testid="meu-carrinho">
       <Bar>
         <TitleBar>Meu carrinho</TitleBar>
       </Bar>
