@@ -88,7 +88,7 @@ describe('Testa se os elementos do Restaurante aparecem na tela e se as interaç
     //Confirma se o botão adicionar do produto aparece na tela
     const botaoAdicionar = queryByText(/adicionar/i);
     expect(botaoAdicionar).toBeInTheDocument;
-
+    
     // Confirma se a requisição foi feita para a API fake
     await wait(() => {
       expect(axios.get).toHaveBeenCalled()

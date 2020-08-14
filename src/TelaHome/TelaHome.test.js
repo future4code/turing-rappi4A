@@ -238,7 +238,7 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
               <FiltrosContext.Provider value={{filtroCategoria:filtroCategoria, filtroBusca:filtroBusca, dispatch: dispatch }}>
               <Router history={history}>
                     <TelaHome />
-                    {/* <TelaListaDeRestaurantes /> */}
+                    <TelaListaDeRestaurantes />
                 </Router>
               </FiltrosContext.Provider>
             </CarrinhoContext.Provider>
