@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico, Resteurante, Total } from './styles';
+import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico, Resteurante, Data, Total } from './styles';
 
 import Editar from '../Components/Editar'
 import EditarEndereco from '../Components/EditarEndereco'
@@ -71,6 +71,27 @@ function TelaDePerfil() {
   const onClickMudar = (tela) => {
     setTrocarTela(tela)
   }
+  const meses = [
+    "Janeiro",
+    "Fevereiro",
+    "Março",
+    "Abril",
+    "Maio",
+    "Junho",
+    "Julho",
+    "Agosto",
+    "Setembro",
+    "Outubro",
+    "Novembro",
+    "Dezembro"
+  ]
+  const formataData = i => {
+    const data = new Date(i),
+    day  = (data.getDate()).toString().padStart(2, '0'),
+    month  = meses[(data.getMonth())],
+    year  = data.getFullYear()
+    return (day+" "+month+" "+year)
+  }
 
   return (
     <ContainerPerfil>
@@ -106,6 +127,7 @@ function TelaDePerfil() {
                 return (
                   <li key={pedido.createdAt}>
                     <Resteurante>{pedido.restaurantName}</Resteurante>
+                    <Data>{formataData(pedido.createdAt)}</Data>
                     <Total>SUBTOTAL R${pedido.totalPrice.toFixed(2).replace('.', ',')}</Total>
                   </li>
                 )
