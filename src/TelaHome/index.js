@@ -3,14 +3,15 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import useProtectedRoute from '../Hooks/useProtectedRoute';
 import FiltrosContext from '../Contexts/FiltrosContext'
+import CarrinhoContext from '../Contexts/CarrinhoContext'
 import Menu from '../Components/Menu/index'
 import Loading from '../Components/Loading';
 
-import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, ContainerFiltro, FiltroCategoria, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone } from './styles';
+import { Container, Header, HeaderTitulo, ContainerBusca, InputBusca, PedidoText, EnderecoRestaurante, ContainerFiltro, Subtotal, FiltroCategoria, DadosDoPedido, Icon, ListaRestaurantes, CardRestaurante, CardImagem, CardTexto, CardNome, CardInfo, ResultadoTexto, HeaderIcone, PedidoEmAndamento} from './styles';
 
 import iconeVoltar from '../Images/back.svg';
 import iconeBusca from '../Images/search.svg';
-
+import Relogio from '../Images/clock.png'
 
 const TelaHome = () => {
   const history = useHistory();
@@ -26,7 +27,9 @@ const TelaHome = () => {
 
   const [ listaRestaurantes, setListaRestaurantes ] = useState([]);
   const filtrosContext = useContext(FiltrosContext);
+  const carrinhoContext = useContext(CarrinhoContext);
 
+  const [ ordem, setOrdem ] = useState({})
   const [ busca, setBusca ] = useState(false)
   const [ filtroBusca, setFiltroBusca ] = useState(filtrosContext.filtroBusca)
   const [ filtroCategoria, setFiltroCategoria ] = useState(filtrosContext.filtroCategoria)
@@ -42,8 +45,19 @@ const TelaHome = () => {
     }
   }
 
+  const getActiveOrder = () => {
+    axios.get(`https://us-central1-missao-newton.cloudfunctions.net/rappi4A/active-order`, axiosConfig)
+    .then(response => {
+      setOrdem(response.data.order)
+      console.log(response.data.order)
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
   useEffect(() => {
     getRestaurantes();
+    getActiveOrder();
   }, []);
 
   let categorias = [];
@@ -54,6 +68,11 @@ const TelaHome = () => {
     if(pegaCategorias.indexOf(categoria) === idx) {
       return categoria
     }
+  });
+
+  let valorTotal = 0;
+  carrinhoContext.carrinho.forEach(produto => {
+    valorTotal = valorTotal + produto.price * produto.quantity;
   });
 
   const acionaBusca = e => {
@@ -137,6 +156,22 @@ const TelaHome = () => {
           })
         }
       </ListaRestaurantes>
+      {ordem !== null ? <PedidoEmAndamento>
+        <Icon>
+          <img src={Relogio} alt="Relógio Icon"/>
+        </Icon>
+        <DadosDoPedido>
+          <PedidoText>
+            Pedido em andamento
+          </PedidoText>
+          <EnderecoRestaurante>
+            {ordem.restaurantName}
+          </EnderecoRestaurante>
+          <Subtotal>
+            SUBTOTAL R${ordem.totalPrice}
+          </Subtotal>
+        </DadosDoPedido>
+      </PedidoEmAndamento> : ""}
       <Menu />
     </Container>}
   </>
