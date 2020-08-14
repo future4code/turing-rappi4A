@@ -23,12 +23,12 @@ axios.post = jest.fn().mockResolvedValue();
 
 const mockDataEndereco = {
     "address": {
-        "neighbourhood": "Vila N. Conceição",
-        "number": "177",
-        "city": "São Paulo",
-        "apartment": null,
-        "state": "SP",
-        "street": "R. Afonso Braz"
+        "complement": "72",
+        "street": "Rua teste",
+        "city": "Poá",
+        "neighbourhood": "Casarão",
+        "state": "São Paulo",
+        "number": "72"
     }
 }
 
@@ -98,8 +98,7 @@ const filtroBusca = "";
 describe('Testa se os elementos do Feed aparecem na tela e se as interações retornam as ações esperadas', () => {
       test('Testa se os detalhes dos produtos aparecem na tela o envio do pedido', async() => {
 
-        axios.get = jest.fn().mockResolvedValue({data: mockDataEndereco })
-        axios.get = jest.fn().mockResolvedValue({data: mockDataRestaurante })
+        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataRestaurante })
 
         // Simula a renderização do componente, com base na rota (pq ela pega o id pelo useParams). Link de explicação: https://testing-library.com/docs/example-react-router
         const history = createMemoryHistory()
@@ -112,35 +111,23 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
               </FiltrosContext.Provider>
             </CarrinhoContext.Provider>
         )
-            
-        // Confirma se a requisição foi feita para a API fake
-        // await wait(() => {
-        //     expect(axios.get).toHaveBeenCalledWith(`${baseUrl}/1`, axiosConfig)
-        //     expect(axios.get).toHaveBeenCalledWith(`https://us-central1-missao-newton.cloudfunctions.net/rappi4A/profile/address`, axiosConfig)
-        // }, 50000);
         
-        // debug(getByTestId("meu-carrinho"));
-
         // Confirma se as informações do restaurante aparecem na tela
         const cabecalho = getByText(/meu carrinho/i);
         expect(cabecalho).toBeInTheDocument;
-
         
         const endereco = getByText("Endereço de entrega");
         expect(endereco).toBeInTheDocument;
         
-        // const rua = getByText("R. Afonso Braz");
-        // expect(rua).toBeInTheDocument;
-
-        // await wait(() => {
-        //     const nomeRestaurante = getByText("Habibs");
-        //     expect(nomeRestaurante).toBeInTheDocument; 
-        // })
+        await wait(() => {
+            const nomeRestaurante = getByText("Habibs");
+            expect(nomeRestaurante).toBeInTheDocument; 
+        })
         
-        // await wait(() => {
-        //     const frete = getByText("Frete R$ 6,00");
-        //     expect(frete).toBeInTheDocument;
-        // }, 45000)
+        await wait(() => {
+            const frete = getByText("Frete R$ 6.00");
+            expect(frete).toBeInTheDocument;
+        }, 45000)
 
         const produto1 = getByText("Pastel autêntico, feito na hora!");
         expect(produto1).toBeInTheDocument;
@@ -165,5 +152,35 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
         await wait(() => {
           expect(axios.post).toHaveBeenCalled()
         }, 4000);
+    });
+      test('Testa se aparece o endereço do usuário', async() => {
+
+        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataEndereco })
+
+        // Simula a renderização do componente, com base na rota (pq ela pega o id pelo useParams). Link de explicação: https://testing-library.com/docs/example-react-router
+        const history = createMemoryHistory()
+        const { getByText, getByTestId, debug } = render(
+            <CarrinhoContext.Provider value={{carrinho:carrinho, dispatch: dispatch }}>
+              <FiltrosContext.Provider value={{filtroCategoria:filtroCategoria, filtroBusca:filtroBusca, dispatch: dispatch }}>
+              <Router history={history}>
+                    <TelaDeCarrinho />
+                </Router>
+              </FiltrosContext.Provider>
+            </CarrinhoContext.Provider>
+        )
+        const endereco = getByText("Endereço de entrega");
+        
+        expect(endereco).toBeInTheDocument;
+        
+        // Confirma se a requisição foi feita para a API fake
+        await wait(() => {
+            expect(axios.get).toHaveBeenCalledWith(`https://us-central1-missao-newton.cloudfunctions.net/rappi4A/profile/address`, axiosConfig)
+        }, 50000);
+        
+        
+        // await wait(() => {
+        //     const rua = getByText("Rua teste");
+        //     expect(rua).toBeInTheDocument;
+        // })
     });
 });

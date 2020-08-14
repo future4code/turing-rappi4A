@@ -56,7 +56,7 @@ const filtroBusca = "";
 describe('Testa se os elementos do Feed aparecem na tela e se as interações retornam as ações esperadas', () => {
     test('Testa se aparece o nome do app, o input de busca e se os restaurantes aparecem na tela após a requisição da API, assim como o menu de categorias', async() => {
         axios.get = jest.fn().mockResolvedValueOnce({data: mockData});
-        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataOrder});
+
         // Cria a memória da url, sem ser preciso mexer na barra de endereços
         const history = createMemoryHistory();
 
@@ -71,12 +71,12 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
             </CarrinhoContext.Provider>
         )
         
-        // testa se a requisição fake foi feita
-        // expect(axios.get).toHaveBeenCalledWith(baseUrl,  {
-        //     headers: {
-        //         auth: null,
-        //     }
-        // });
+        //testa se a requisição fake foi feita
+        expect(axios.get).toHaveBeenCalledWith(baseUrl,  {
+            headers: {
+                auth: null,
+            }
+        });
 
         // espera para receber os elementos da página após a requisição (lembrar de colocar o async na função de test)
         await wait(() => {
@@ -103,7 +103,6 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
     test('Se não há restaurantes, a página fica apenas carregando', () => {
         // Simula uma requisição seja rejeitada
         axios.get = jest.fn().mockRejectedValueOnce();
-        axios.get = jest.fn().mockRejectedValueOnce();
 
         // Cria a memória da url, sem ser preciso mexer na barra de endereços
         const history = createMemoryHistory();
@@ -126,7 +125,6 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
     test('Testa se ao digitar no input de busca, o nome do app é substituído pela busca, há um botão de voltar e há a mensagem "Busque pelo nome do restaurante"', async() => {
         // Simula uma requisição fake
         axios.get = jest.fn().mockResolvedValueOnce({data: mockData});
-        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataOrder});
 
         // Cria a memória da url, sem ser preciso mexer na barra de endereços
         const history = createMemoryHistory();
@@ -171,7 +169,6 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
     test('Testa se ao digitar o nome de um restaurante que existe na lista, ele aparece na tela', async() => {
         // Simula uma requisição fake
         axios.get = jest.fn().mockResolvedValueOnce({data: mockData});
-        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataOrder});
 
         // Cria a memória da url, sem ser preciso mexer na barra de endereços
         const history = createMemoryHistory();
@@ -215,7 +212,6 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
     test('Testa se ao digitar o nome de um restaurante que não existe na lista, não aparece nenhum restaurante na tela, apenas a mensagem "Nada encontrado"', async() => {
         // Simula uma requisição fake
         axios.get = jest.fn().mockResolvedValueOnce({data: mockData});
-        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataOrder});
 
         // Cria a memória da url, sem ser preciso mexer na barra de endereços
         const history = createMemoryHistory();
@@ -244,7 +240,6 @@ describe('Testa se os elementos do Feed aparecem na tela e se as interações re
     test('Testa se, ao clicar em um restaurante, o usuário é redirecionado para a página do restaurante', async() => {
         // Simula uma requisição fake
         axios.get = jest.fn().mockResolvedValueOnce({data: mockData});
-        axios.get = jest.fn().mockResolvedValueOnce({data: mockDataOrder});
         
         // Simula o useParams com o path :1
         useParams.mockReturnValue({ id: "1" });

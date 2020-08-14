@@ -107,27 +107,33 @@ describe('Testa se os elementos do Restaurante aparecem na tela e se as interaç
     // Simula a renderização do componente, com base na rota (pq ela pega o id pelo useParams). Link de explicação: https://testing-library.com/docs/example-react-router
     const history = createMemoryHistory()
     const { getByText, queryByText, findByText, debug, findByTestId, getByTestId } = render(
-      <Router history={history}>
-        <TelaListaDeRestaurantes />
-      </Router>
+      <CarrinhoContext.Provider value={{carrinho:carrinho, dispatch: dispatch }}>
+        <FiltrosContext.Provider value={{filtroCategoria:filtroCategoria, filtroBusca:filtroBusca, dispatch: dispatch }}>
+        <Router history={history}>
+              <TelaListaDeRestaurantes />
+          </Router>
+        </FiltrosContext.Provider>
+      </CarrinhoContext.Provider>
     )
         
     //Confirma se o botão adicionar do produto aparece na tela
-    const botaoAdicionar = queryByText(/adicionar/i);
+    await wait(() => {
+      const botaoAdicionar = getByText(/adicionar/i);
+      expect(botaoAdicionar).toBeInTheDocument;
+        // Clica no botão adicionar
+        userEvent.click(botaoAdicionar);
+    })
     
     await wait(() => {
-        expect(botaoAdicionar).toBeInTheDocument;
-    }, 3500)
-
-    // await wait(() => {
-    //     // Clica no botão adicionar
-    //     fireEvent.click(botaoAdicionar);
-    // })
+        const quantidade = queryByText("Selecione a quantidade desejada");
+        expect(quantidade).toBeInTheDocument();
+      })
     
-    // await wait(() => {
-    //     const quantidade = queryByText("Selecione a quantidade desejada");
-    //     expect(quantidade).toBeInTheDocument();
-    // })
+    const select = queryByText("0");
+    userEvent.selectOptions(select, '3');
+
+    const botaoAdicionarQuantidade = queryByText("Adicionar ao carrinho");
+    userEvent.click(botaoAdicionarQuantidade);
 
     // Confirma se a requisição foi feita para a API fake
     await wait(() => {

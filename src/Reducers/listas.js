@@ -1,8 +1,5 @@
 export const initialState = {
   carrinho: [],
-  filtros: {
-      filtroBusca: '',
-  },
   filtroCategoria: null,
   filtroBusca: '',
 };
