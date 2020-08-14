@@ -36,6 +36,12 @@ export const listasReducer = (state, action) => {
           return produto.id !== action.produtoId;
       });
       return { ...state, carrinho: carrinhoSemProduto };
+
+    case "LIMPA_CARRINHO":
+      return {
+        ...state, 
+        carrinho: initialState.carrinho
+      };
     
     case "SET_BUSCA":
       return {

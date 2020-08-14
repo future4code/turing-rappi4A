@@ -6,18 +6,6 @@ import { Form } from '../Editar/styles'
 import axios from 'axios'
 import useInput from '../../Hooks/useInput';
 import useProtectedRoute from '../../Hooks/useProtectedRoute';
-<<<<<<< HEAD
-
-function CriarEndereco(props) {
-    const token = useProtectedRoute()
-
-    const axiosConfig = {
-      headers: {       
-        auth: token     
-      } 
-    }
-
-=======
 
 function CriarEndereco(props) {
   const token = useProtectedRoute();
@@ -28,46 +16,45 @@ function CriarEndereco(props) {
     } 
   }
 
->>>>>>> master
-    const { form, onChange, resetaEntrada } = useInput({
-        street: "",
-        number: "",
-        complement: "",
-        neighbourhood: "",
-        city: "",
-        state:""
-        })
-    
-    const history = useHistory()    
+  const { form, onChange, resetaEntrada } = useInput({
+    street: "",
+    number: "",
+    complement: "",
+    neighbourhood: "",
+    city: "",
+    state:""
+    })
+  
+  const history = useHistory()    
 
-    const handleInputChange = event => {
-        const { name, value } = event.target
-        onChange(name, value)
-    }
+  const handleInputChange = event => {
+      const { name, value } = event.target
+      onChange(name, value)
+  }
 
-    const editarEndereco = (event) => {
-        event.preventDefault()
-        const body = {
-            street: form.street,
-            number: form.number,
-            complement: form.complement,
-            neighbourhood: form.neighbourhood,
-            city: form.city,
-            state: form.state
-        }
-        console.log(body)
-        console.log(axiosConfig)
-        axios
-        .put(`${props.baseUrl}/address`, body, axiosConfig)
-        .then(response => {
-          console.log(response.data)
-          alert("Endereço salvo com sucesso")
-          history.push("/login")
-        })
-        .catch(err => {
-          console.log(err.message)
-        })
+  const editarEndereco = (event) => {
+      event.preventDefault()
+      const body = {
+          street: form.street,
+          number: form.number,
+          complement: form.complement,
+          neighbourhood: form.neighbourhood,
+          city: form.city,
+          state: form.state
       }
+      console.log(body)
+      console.log(axiosConfig)
+      axios
+      .put(`${props.baseUrl}/address`, body, axiosConfig)
+      .then(response => {
+        console.log(response.data)
+        alert("Endereço salvo com sucesso")
+        history.push("/login")
+      })
+      .catch(err => {
+        console.log(err.message)
+      })
+    }
 
   return (
       <ContainerCriarEndereco>
