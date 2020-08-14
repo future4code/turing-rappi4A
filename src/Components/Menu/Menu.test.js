@@ -50,11 +50,4 @@ test('Testa se o menu redireciona a tela para os links corretamente', async() =>
     expect(carrinho).toBeInTheDocument();
     expect(usuario).toBeInTheDocument();
     
-    userEvent.click(home);
-    
-    expect(getByText("Rappi4")).toBeInTheDocument();
-    // await wait(() => {
-    //     expect(axios.get).toHaveBeenCalledTimes(1);
-    // });
-
 });

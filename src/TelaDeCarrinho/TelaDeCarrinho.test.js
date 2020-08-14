@@ -95,7 +95,7 @@ const carrinho = [{
 const filtroCategoria = "Árabe";
 const filtroBusca = "";
 
-describe.skip('Testa se os elementos do Feed aparecem na tela e se as interações retornam as ações esperadas', () => {
+describe('Testa se os elementos do Feed aparecem na tela e se as interações retornam as ações esperadas', () => {
       test('Testa se os detalhes dos produtos aparecem na tela o envio do pedido', async() => {
 
         axios.get = jest.fn().mockResolvedValue({data: mockDataEndereco })

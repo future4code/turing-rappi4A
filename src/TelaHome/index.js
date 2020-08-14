@@ -45,14 +45,14 @@ const TelaHome = () => {
     }
   }
 
-  const getActiveOrder = () => {
-    axios.get(`https://us-central1-missao-newton.cloudfunctions.net/rappi4A/active-order`, axiosConfig)
-    .then(response => {
+  const getActiveOrder = async() => {
+    try {
+      const response = await axios.get(`https://us-central1-missao-newton.cloudfunctions.net/rappi4A/active-order`, axiosConfig);  
       setOrdem(response.data.order)
-      console.log(response.data.order)
-    }).catch(err => {
+    }
+    catch(err) {
       console.log(err.message)
-    })
+    }
   }
 
   useEffect(() => {
