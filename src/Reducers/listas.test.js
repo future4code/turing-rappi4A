@@ -65,7 +65,6 @@ describe('testa os reducer', () => {
         expect(listasReducer( initialState, {
             type: 'RESET_BUSCA',
             })).toEqual({"carrinho": [], "filtroBusca": "", "filtroCategoria": null})
-
     });
     test('testa SET_FILTROS', () => {
         expect(listasReducer( initialState, {
