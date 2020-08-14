@@ -114,7 +114,6 @@ export const Resteurante = styled.div`
     line-height: normal;
     letter-spacing: -0.39px;
     color: #e86e5a;
-    margin-bottom: 10px;
 `
 
 export const Total = styled.div`
@@ -125,4 +124,14 @@ export const Total = styled.div`
     font-style: normal;
     line-height: normal;
     letter-spacing: -0.39px;
+`
+
+export const Data = styled.div`
+    font-size: 12px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
+    margin: 8px 0;
 `
