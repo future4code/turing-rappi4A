@@ -17,7 +17,7 @@ export const listasReducer = (state, action) => {
       let novoCarrinho;
       if (produtosNoCarrinho === -1) {
         novoCarrinho = [...state.carrinho, { ...action.produto, quantity: action.quantidadeSelecionada, restauranteId: action.restauranteId}];
-      }
+      } 
       else {
         novoCarrinho = state.carrinho.map(produto => {
           if (produto.id === action.produto.id) {
@@ -34,27 +34,17 @@ export const listasReducer = (state, action) => {
       return { ...state, carrinho: novoCarrinho };
 
     case "REMOVE_PRODUTO_CARRINHO":
-      const novoCarrinhoSemProduto = state.carrinho.filter(produto => {
+      const carrinhoSemProduto = state.carrinho.filter(produto => {
           return produto.id !== action.produtoId;
       });
-      return { ...state, carrinho: novoCarrinhoSemProduto };
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+      return { ...state, carrinho: carrinhoSemProduto }; 
       
+      case "LIMPA_CARRINHO":
+      return {
+        ...state, 
+        carrinho: initialState.carrinho
+      };
+   
     case "SET_BUSCA":
       return {
         ...state,

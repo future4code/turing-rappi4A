@@ -7,29 +7,34 @@ import {CardProduto, CardImagem, CardTexto, CardNome, CardDescription, CardPrice
 import axios from 'axios'
 import CarrinhoContext from '../Contexts/CarrinhoContext'
 import Menu from '../Components/Menu/index'
+import useProtectedRoute from '../Hooks/useProtectedRoute';
+import { useHistory } from 'react-router-dom';
+import Loading from '../TelaInicial/index'
 
-const token = window.localStorage.getItem('token');
-
-const axiosConfig = {
-  headers: {
-    auth: token,
-  }
-}
+// const token = window.localStorage.getItem('token');
 
 const baseUrl = "https://us-central1-missao-newton.cloudfunctions.net/rappi4A"
 
 function TelaDeCarrinho() {
+  const history = useHistory();
+  const token = useProtectedRoute();
   const [metodoPagamento, setMetodoPagamento] = useState("");
   const [address, setAddress] = useState({});
   const [cor, setCor] = useState(false);
   const [enderecoRestaurante, setEnderecoRestaurante] = useState({});
   const carrinhoContext = useContext(CarrinhoContext);
 
+  const axiosConfig = {
+    headers: {
+      auth: token,
+    }
+  }
+
   let valorTotal = 0;
   let arrayPlaceOrder = [];
   carrinhoContext.carrinho.forEach(produto => {
     valorTotal = valorTotal + produto.price * produto.quantity;
-    arrayPlaceOrder.push({quantity: produto.quantity, id: produto.id})
+    arrayPlaceOrder.push({quantity: Number(produto.quantity), id: produto.id})
   });
 
   const getFullAdress = () => {
@@ -61,9 +66,12 @@ function TelaDeCarrinho() {
       axios.post(`${baseUrl}/restaurants/${carrinhoContext.carrinho[0].restauranteId}/order`, body, axiosConfig)
       .then(() => {
         alert("Pedido enviado!")
+        limpaCarrinho()
       })
       .catch((err) => {
         console.log(err.message)
+        alert("Já existe um pedido em andamento.")
+        limpaCarrinho()
       })
     }
   }
@@ -82,6 +90,10 @@ function TelaDeCarrinho() {
     carrinhoContext.dispatch({ type: "REMOVE_PRODUTO_CARRINHO", produtoId: produtoId });
   }
 
+  const limpaCarrinho = () => {
+    carrinhoContext.dispatch({ type: "LIMPA_CARRINHO"});
+  }
+
   useEffect(() =>{
     carrinhoContext.carrinho.length !== 0  && getRestaurantDetail()
     mudaCorBotao()
@@ -89,6 +101,9 @@ function TelaDeCarrinho() {
 
   useEffect(() =>{
     getFullAdress()
+    if(token === null){
+      history.push("/login")
+    }
   })
   
   const itensCarrinho = carrinhoContext.carrinho.map(item => {
@@ -145,7 +160,7 @@ function TelaDeCarrinho() {
             <CustomRadio 
               type="radio" 
               name="a"
-              value="Dinheiro" 
+              value="money" 
               onChange={pegaMetodoPagamento}
               required 
             /> Dinheiro
@@ -154,7 +169,7 @@ function TelaDeCarrinho() {
             <CustomRadio
               type="radio" 
               name="a"
-              value="Cartão de crédito" 
+              value="creditcard" 
               onChange={pegaMetodoPagamento}
               required 
             /> Cartão de crédito
@@ -163,7 +178,7 @@ function TelaDeCarrinho() {
         </OptionsPayMethod>
       </Container>
       <Menu/>
-    </Cart>  
+    </Cart> 
   );
 }
 
