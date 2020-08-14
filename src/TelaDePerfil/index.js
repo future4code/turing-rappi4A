@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico } from './styles';
+import { ContainerPerfil, Header, DadosPessoais, InfoEndereco, Historico, Resteurante, Total } from './styles';
 
 import Editar from '../Components/Editar'
 import EditarEndereco from '../Components/EditarEndereco'
@@ -104,7 +104,10 @@ function TelaDePerfil() {
             <ul>
               {historico.map(pedido => {
                 return (
-                  <li>{pedido}</li>
+                  <li key={pedido.createdAt}>
+                    <Resteurante>{pedido.restaurantName}</Resteurante>
+                    <Total>SUBTOTAL R${pedido.totalPrice.toFixed(2).replace('.', ',')}</Total>
+                  </li>
                 )
               })}
             </ul>

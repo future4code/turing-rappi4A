@@ -77,6 +77,7 @@ export const Historico = styled.div`
         letter-spacing: -0.39px;
         padding-bottom: 8px;
         margin: 0;
+        margin-bottom: 16px;
     }
 
     > p {
@@ -85,12 +86,15 @@ export const Historico = styled.div`
 
     ul {
         padding: 0;
+        align-items: center;
+        display: flex;
+        flex-direction: column;
     }
 
     li {
         list-style: none;
         padding: 16px;
-        width: 83vw;
+        width: 90vw;
         border-radius: 8px;
         border: solid 1px #b8b8b8;
         margin-bottom: 8px;
@@ -99,4 +103,26 @@ export const Historico = styled.div`
             margin: 8px 0;
         }
     }
+`
+
+export const Resteurante = styled.div`
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
+    color: #e86e5a;
+    margin-bottom: 10px;
+`
+
+export const Total = styled.div`
+    font-family: Roboto;
+    font-size: 16px;
+    font-weight: bold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: normal;
+    letter-spacing: -0.39px;
 `
