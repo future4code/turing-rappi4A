@@ -181,7 +181,7 @@ function TelaDeCadastro() {
                 />
                 {botaoVerConfirmaSenha()}
             </div>
-            <button>Cadastrar</button>
+            <button data-testId={"Cadastro"}>Cadastrar</button>
         </Form>
       </div>
     :
