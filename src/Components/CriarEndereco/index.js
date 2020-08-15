@@ -25,8 +25,8 @@ function CriarEndereco(props) {
     state:""
     })
   
-  const history = useHistory()  
-
+  const history = useHistory();
+  
   const handleInputChange = event => {
       const { name, value } = event.target
       onChange(name, value)

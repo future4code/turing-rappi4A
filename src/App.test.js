@@ -1,9 +1,14 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen, wait } from '@testing-library/react';
 import App from './App';
 
-test('testa se o logo aparece na tela', () => {
-  const { getByAltText } = render(<App />);
-  const logo = getByAltText(/Logo Rappi4/i);
-  expect(logo).toBeInTheDocument();
+import axios from "axios";
+import { Router, Route, MemoryRouter, useParams } from 'react-router-dom';
+import { createMemoryHistory } from 'history';
+import userEvent from "@testing-library/user-event";
+
+test('Renderiza a tela inicial', () => {
+  render(<App />);
+  const logoApp = screen.getByAltText(/Logo Rappi4/i);
+  expect(logoApp).toBeInTheDocument();
 });

@@ -37,23 +37,24 @@ function TelaDeCarrinho() {
     arrayPlaceOrder.push({quantity: Number(produto.quantity), id: produto.id})
   });
 
-  const getFullAdress = () => {
-    axios.get(`${baseUrl}/profile/address`, axiosConfig)
-    .then(response => {
+  const getFullAdress = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/profile/address`, axiosConfig)
       setAddress(response.data.address)
-    }).catch(err => {
+    }
+    catch(err) {
       console.log(err.message)
-    })
+    }
   }
 
-  const getRestaurantDetail = () => {
-    axios.get(`${baseUrl}/restaurants/${carrinhoContext.carrinho[0].restauranteId}`, axiosConfig)
-    .then(response => {
-      setEnderecoRestaurante(response.data.restaurant)
-      console.log(response.data.restaurant)
-    }).catch(err => {
+  const getRestaurantDetail = async () => {
+    try {
+      const response = await axios.get(`${baseUrl}/restaurants/${carrinhoContext.carrinho[0].restauranteId}`, axiosConfig)
+      setEnderecoRestaurante(response.data.restaurant);
+    }
+    catch(err) {
       console.log(err.message)
-    })
+    }
   }
 
   const enviaPedido = (event) => {
@@ -129,7 +130,7 @@ function TelaDeCarrinho() {
   })
 
   return (
-    <Cart>
+    <Cart data-testid="meu-carrinho">
       <Bar>
         <TitleBar>Meu carrinho</TitleBar>
       </Bar>
