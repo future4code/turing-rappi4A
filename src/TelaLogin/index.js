@@ -85,7 +85,7 @@ function TelaLogin() {
           />
           <ViewPasswordIcon onClick={changePassword} src={Senha} alt="View Password Icon"/>
         </RectangleInputPassword>
-        <ButtonEnter>Entrar</ButtonEnter>
+        <ButtonEnter data-testid="botaoEntrar">Entrar</ButtonEnter>
       </FormLogin>
       <Title>
         <Text>Não possui cadastro?<span onClick={telaDeCadastro}> Clique aqui </span></Text>

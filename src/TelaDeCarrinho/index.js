@@ -9,7 +9,6 @@ import CarrinhoContext from '../Contexts/CarrinhoContext'
 import Menu from '../Components/Menu/index'
 import useProtectedRoute from '../Hooks/useProtectedRoute';
 import { useHistory } from 'react-router-dom';
-import Loading from '../TelaInicial/index'
 
 // const token = window.localStorage.getItem('token');
 
@@ -32,7 +31,7 @@ function TelaDeCarrinho() {
 
   let valorTotal = 0;
   let arrayPlaceOrder = [];
-  carrinhoContext.carrinho.forEach(produto => {
+  carrinhoContext.carrinho !== undefined && carrinhoContext.carrinho.forEach(produto => {
     valorTotal = valorTotal + produto.price * produto.quantity;
     arrayPlaceOrder.push({quantity: Number(produto.quantity), id: produto.id})
   });
@@ -158,6 +157,7 @@ function TelaDeCarrinho() {
         <OptionsPayMethod onSubmit={enviaPedido}>
           <LabelRadio>
             <CustomRadio 
+              data-testid="inputRadioDinheiro"
               type="radio" 
               name="a"
               value="money" 
@@ -167,6 +167,7 @@ function TelaDeCarrinho() {
           </LabelRadio>
           <LabelRadio>
             <CustomRadio
+              data-testid="inputRadioCartao"
               type="radio" 
               name="a"
               value="creditcard" 
@@ -174,7 +175,7 @@ function TelaDeCarrinho() {
               required 
             /> Cartão de crédito
           </LabelRadio>
-          <ButtonConfirmCart cor={cor ? "#e86e5a" : "rgba(232, 110, 90, 0.5)"}>Confirmar</ButtonConfirmCart>
+          <ButtonConfirmCart data-testid="botaoConfirmar" cor={cor ? "#e86e5a" : "rgba(232, 110, 90, 0.5)"}>Confirmar</ButtonConfirmCart>
         </OptionsPayMethod>
       </Container>
       <Menu/>
